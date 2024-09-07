@@ -13,7 +13,7 @@ public class ResumeDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, resume.getJobTitle());
-            pstmt.setString(2, resume.getFirstName());
+            pstmt.setString(2, resume.getFirstName());  hello
             pstmt.setString(3, resume.getLastName());
             pstmt.setString(4, resume.getEmail());
             pstmt.setString(5, resume.getPhone());
