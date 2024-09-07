@@ -21,8 +21,8 @@ public class MainWindow extends JFrame {
     private static final Color INPUT_BACKGROUND = new Color(180, 80, 80); // Darker red for input fields
 
     private Map<String, JTextField> textFields = new HashMap<>();
-    private JTextArea summaryArea;
-
+    private JTextArea summaryArea; 
+  
     public MainWindow() {
         setTitle("Resume Builder");
         setSize(1200, 800);
