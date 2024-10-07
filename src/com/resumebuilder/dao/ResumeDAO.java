@@ -4,8 +4,20 @@ import com.resumebuilder.model.Resume;
 import com.resumebuilder.dao.DatabaseConnection;
 
 import java.sql.*;
+// Database connection class
+class DatabaseConnection {
+    private static final String URL = "jdbc:mysql://localhost:3306/your_database"; // Update with your database name
+    private static final String USER = "anuj"; // Update with your username
+    private static final String PASSWORD = "anuj"; // Update with your password
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+}
 
 public class ResumeDAO {
+
+
     public void saveResume(Resume resume) throws SQLException {
         String sql = "INSERT INTO resumes (job_title, first_name, last_name, email, phone, country, city, professional_summary) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -13,7 +25,7 @@ public class ResumeDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, resume.getJobTitle());
-            pstmt.setString(2, resume.getFirstName());  hello
+            pstmt.setString(2, resume.getFirstName());
             pstmt.setString(3, resume.getLastName());
             pstmt.setString(4, resume.getEmail());
             pstmt.setString(5, resume.getPhone());

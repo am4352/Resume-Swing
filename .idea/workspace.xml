@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f9df78ab-92c6-43ac-92be-9b2e7d590fd2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/dao/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/dao/DatabaseConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:RES-ZZ/Resume-Swing.git&quot;,
+    &quot;url&quot;: &quot;https://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@github.com/am4352/Resume-Swing.git&quot;,
     &quot;accountId&quot;: &quot;8d68aee2-3a89-4276-8b48-a7a69e10bf3c&quot;
   }
 }</component>
@@ -97,5 +98,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
