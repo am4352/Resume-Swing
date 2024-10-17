@@ -1,29 +1,27 @@
 package com.resumebuilder.dao;
 
 import com.resumebuilder.model.Resume;
-import com.resumebuilder.dao.DatabaseConnection;
 
 import java.sql.*;
-// Database connection class
-class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/your_database"; // Update with your database name
-    private static final String USER = "anuj"; // Update with your username
-    private static final String PASSWORD = "anuj"; // Update with your password
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
-}
 
 public class ResumeDAO {
+    private static final String URL = "jdbc:mysql://localhost:3306/student"; // Update with your database URL
+    private static final String USER = "root"; // Update with your database username
+    private static final String PASSWORD = "anuj"; // Update with your database password
 
+    private Connection connection;
+    public ResumeDAO(Connection connection) {
+        this.connection = connection;
+    }
+
+    public ResumeDAO() throws SQLException {
+        this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
+    }
 
     public void saveResume(Resume resume) throws SQLException {
         String sql = "INSERT INTO resumes (job_title, first_name, last_name, email, phone, country, city, professional_summary) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
+        try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, resume.getJobTitle());
             pstmt.setString(2, resume.getFirstName());
             pstmt.setString(3, resume.getLastName());
@@ -49,5 +47,10 @@ public class ResumeDAO {
         }
     }
 
-    // Add more methods for updating, deleting, and retrieving resumes
+    // Close the connection when done
+    public void close() throws SQLException {
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+        }
+    }
 }
