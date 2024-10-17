@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="kernel-7.1.10">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../shashwat's files/jarfiles/kernel-7.1.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../shashwat's files/jarfiles/layout-7.1.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../shashwat's files/jarfiles/io-7.1.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
