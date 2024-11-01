@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f9df78ab-92c6-43ac-92be-9b2e7d590fd2" name="Changes" comment="added pdf generaration , database connected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resume.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/dao/ResumeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/dao/ResumeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/gui/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/model/Resume.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/model/Resume.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/util/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/util/PdfGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +37,16 @@
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://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@github.com/am4352/Resume-Swing.git&quot;,
     &quot;accountId&quot;: &quot;8d68aee2-3a89-4276-8b48-a7a69e10bf3c&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;am4352&quot;,
+    &quot;repository&quot;: &quot;Resume-Swing&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -46,25 +61,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MainWindow.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;anuj&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/FINAL APP&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MainWindow.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "#1 on anuj",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/FINAL APP",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="Push.Settings">
+    <force-push-targets>
+      <force-push-target remote-path="origin" branch="anuj" />
+    </force-push-targets>
+  </component>
   <component name="RunManager">
     <configuration name="MainWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.resumebuilder.gui.MainWindow" />
@@ -104,7 +124,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729147187430</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added pdf generaration , database connected">
+      <option name="closed" value="true" />
+      <created>1729190474659</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729190474659</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added pdf generaration , database connected">
+      <option name="closed" value="true" />
+      <created>1729190623572</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729190623572</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
