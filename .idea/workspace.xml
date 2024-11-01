@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9df78ab-92c6-43ac-92be-9b2e7d590fd2" name="Changes" comment="added pdf generaration , database connected">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resume.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/dao/ResumeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/dao/ResumeDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/gui/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/model/Resume.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/model/Resume.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/resumebuilder/util/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/resumebuilder/util/PdfGenerator.java" afterDir="false" />
-    </list>
+    <list default="true" id="f9df78ab-92c6-43ac-92be-9b2e7d590fd2" name="Changes" comment="added pdf generaration , database connected" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,25 +54,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainWindow.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#1 on anuj",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/FINAL APP",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.build",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainWindow.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#1 on anuj&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/FINAL APP&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="Push.Settings">
     <force-push-targets>
       <force-push-target remote-path="origin" branch="anuj" />
