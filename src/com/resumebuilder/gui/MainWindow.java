@@ -1,29 +1,20 @@
 package com.resumebuilder.gui;
 
-import com.resumebuilder.model.Resume;
 import com.resumebuilder.dao.ResumeDAO;
+import com.resumebuilder.model.Resume;
+import com.resumebuilder.util.PdfGenerator; // test
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainWindow extends JFrame {
-    private JPanel leftPanel;
-    private JPanel rightPanel;
     private JTabbedPane tabbedPane;
-    private JPanel previewPanel;
-
-    // Define color scheme
-    private static final Color BACKGROUND_COLOR = new Color(255, 150, 150); // Light red background
-    private static final Color ACCENT_COLOR = new Color(220, 20, 60); // Crimson red
-    private static final Color TEXT_COLOR = new Color(50, 50, 50); // Dark gray text
-    private static final Color INPUT_BACKGROUND = new Color(180, 80, 80); // Darker red for input fields
-
-    private Map<String, JTextField> textFields = new HashMap<>();
-    private JTextArea summaryArea;
+    private JTextArea summaryArea, skillsArea, educationArea;
+    private JTextField jobTitleField, firstNameField, lastNameField, emailField, phoneField, countryField, cityField;
+    private JTextField jobRoleField, companyField, startDateField, endDateField;
+    private JTextArea responsibilitiesArea;
+    private JTextField degreeField, universityField, graduationYearField;
 
     public MainWindow() {
         setTitle("Resume Builder");
@@ -31,197 +22,222 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Set look and feel
+        // Set Look and Feel
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Create main split pane
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setBorder(null);
-        splitPane.setDividerSize(1);
-        splitPane.setDividerLocation(600);
-        splitPane.setBackground(BACKGROUND_COLOR);
-        add(splitPane, BorderLayout.CENTER);
-
-        // Left panel (input forms)
-        leftPanel = new JPanel(new BorderLayout());
-        leftPanel.setBackground(BACKGROUND_COLOR);
         tabbedPane = new JTabbedPane();
-        tabbedPane.setFont(new Font("Arial", Font.PLAIN, 14));
-        tabbedPane.setBackground(BACKGROUND_COLOR);
-        tabbedPane.setForeground(TEXT_COLOR);
-        leftPanel.add(tabbedPane, BorderLayout.CENTER);
-        splitPane.setLeftComponent(leftPanel);
+        setContentPane(tabbedPane); // Set tabbedPane as the main content
 
-        // Right panel (resume preview)
-        rightPanel = new JPanel(new BorderLayout());
-        rightPanel.setBackground(Color.WHITE);
-        previewPanel = new JPanel();
-        previewPanel.setBackground(Color.WHITE);
-        previewPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        rightPanel.add(previewPanel, BorderLayout.CENTER);
-        splitPane.setRightComponent(rightPanel);
-
-        // Set up top menu bar
-        setupMenuBar();
-
-        // Add resume score panel
-        addResumeScorePanel();
-
-        // Add tabs and their content
         addPersonalDetailsTab();
         addProfessionalSummaryTab();
+        addSkillsTab();
+        addProfessionalExperienceTab();
+        addEducationTab();
+
+        setupMenuBar();
     }
 
     private void setupMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(Color.WHITE);
+        setJMenuBar(menuBar);
 
-        JMenu fileMenu = new JMenu("File");
-        fileMenu.setFont(new Font("Arial", Font.PLAIN, 14));
-        fileMenu.setForeground(TEXT_COLOR);
-        menuBar.add(fileMenu);
-
-        JButton templateButton = new JButton("Select template");
-        styleButton(templateButton);
-
-        JButton downloadButton = new JButton("Download PDF");
-        styleButton(downloadButton);
-        downloadButton.setBackground(ACCENT_COLOR);
-        downloadButton.setForeground(Color.WHITE);
+        JButton downloadPdfButton = new JButton("Download PDF");
+        downloadPdfButton.addActionListener(e -> downloadPdf());
+        menuBar.add(downloadPdfButton);
 
         JButton saveButton = new JButton("Save Resume");
-        styleButton(saveButton);
         saveButton.addActionListener(e -> saveResume());
-
-        menuBar.add(Box.createHorizontalGlue());
-        menuBar.add(templateButton);
-        menuBar.add(Box.createHorizontalStrut(10));
-        menuBar.add(downloadButton);
-        menuBar.add(Box.createHorizontalStrut(10));
         menuBar.add(saveButton);
-
-        setJMenuBar(menuBar);
-    }
-
-    private void styleButton(JButton button) {
-        button.setFont(new Font("Arial", Font.PLAIN, 14));
-        button.setBackground(Color.WHITE);
-        button.setForeground(TEXT_COLOR);
-        button.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        button.setFocusPainted(false);
-    }
-
-    private void addResumeScorePanel() {
-        JPanel scorePanel = new JPanel(new BorderLayout());
-        scorePanel.setBackground(BACKGROUND_COLOR);
-        scorePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-        JLabel scoreLabel = new JLabel("Your resume score");
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        scoreLabel.setForeground(Color.WHITE);
-        scorePanel.add(scoreLabel, BorderLayout.NORTH);
-
-        JProgressBar scoreBar = new JProgressBar(0, 100);
-        scoreBar.setValue(44);
-        scoreBar.setStringPainted(true);
-        scoreBar.setForeground(ACCENT_COLOR);
-        scoreBar.setBackground(Color.WHITE);
-        scorePanel.add(scoreBar, BorderLayout.CENTER);
-
-        JButton addEmploymentButton = new JButton("+ Add employment history");
-        addEmploymentButton.setBackground(Color.WHITE);
-        addEmploymentButton.setForeground(ACCENT_COLOR);
-        addEmploymentButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        scorePanel.add(addEmploymentButton, BorderLayout.SOUTH);
-
-        leftPanel.add(scorePanel, BorderLayout.NORTH);
     }
 
     private void addPersonalDetailsTab() {
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(BACKGROUND_COLOR);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Fill horizontal space
 
         String[] labels = {"Job Title", "First Name", "Last Name", "Email", "Phone", "Country", "City"};
-        int gridy = 0;
+        JTextField[] fields = {
+                jobTitleField = new JTextField(),
+                firstNameField = new JTextField(),
+                lastNameField = new JTextField(),
+                emailField = new JTextField(),
+                phoneField = new JTextField(),
+                countryField = new JTextField(),
+                cityField = new JTextField()
+        };
 
-        for (String label : labels) {
+        for (int i = 0; i < labels.length; i++) {
             gbc.gridx = 0;
-            gbc.gridy = gridy;
-            JLabel jLabel = new JLabel(label);
-            jLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-            jLabel.setForeground(Color.WHITE);
-            panel.add(jLabel, gbc);
-
+            gbc.gridy = i;
+            panel.add(new JLabel(labels[i]), gbc);
             gbc.gridx = 1;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.weightx = 1;
-            JTextField textField = new JTextField(20);
-            textField.setFont(new Font("Arial", Font.PLAIN, 14));
-            textField.setBackground(INPUT_BACKGROUND);
-            textField.setForeground(Color.WHITE);
-            textField.setBorder(BorderFactory.createLineBorder(INPUT_BACKGROUND));
-            panel.add(textField, gbc);
-
-            textFields.put(label, textField);
-
-            gridy++;
+            panel.add(fields[i], gbc);
         }
 
-        tabbedPane.addTab("Personal Details", new JScrollPane(panel));
+        tabbedPane.addTab("Personal Details", panel);
     }
 
     private void addProfessionalSummaryTab() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(BACKGROUND_COLOR);
-        summaryArea = new JTextArea(10, 30);
-        summaryArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        summaryArea.setLineWrap(true);
-        summaryArea.setWrapStyleWord(true);
-        summaryArea.setBackground(INPUT_BACKGROUND);
-        summaryArea.setForeground(Color.WHITE);
-        summaryArea.setBorder(BorderFactory.createLineBorder(INPUT_BACKGROUND));
+        summaryArea = new JTextArea(5, 30);
         panel.add(new JScrollPane(summaryArea), BorderLayout.CENTER);
-
-        JLabel instruction = new JLabel("<html><font color='white'>Write 2-3 short, energetic sentences about how great you are. Mention the role and what you did. What were the big achievements? Describe your motivation and list your skills.</font></html>");
-        instruction.setFont(new Font("Arial", Font.PLAIN, 14));
-        instruction.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.add(instruction, BorderLayout.NORTH);
-
         tabbedPane.addTab("Professional Summary", panel);
+    }
+
+    private void addSkillsTab() {
+        JPanel panel = new JPanel(new BorderLayout());
+        skillsArea = new JTextArea(5, 30);
+        panel.add(new JScrollPane(skillsArea), BorderLayout.CENTER);
+        tabbedPane.addTab("Skills", panel);
+    }
+
+    private void addProfessionalExperienceTab() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Fill horizontal space
+
+        // Initialize fields
+        jobRoleField = new JTextField();
+        companyField = new JTextField();
+        startDateField = new JTextField();
+        endDateField = new JTextField();
+        responsibilitiesArea = new JTextArea(5, 20);
+
+        // Add components to the panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(new JLabel("Job Role"), gbc);
+        gbc.gridx = 1;
+        panel.add(jobRoleField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(new JLabel("Company"), gbc);
+        gbc.gridx = 1;
+        panel.add(companyField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(new JLabel("Start Date"), gbc);
+        gbc.gridx = 1;
+        panel.add(startDateField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        panel.add(new JLabel("End Date"), gbc);
+        gbc.gridx = 1;
+        panel.add(endDateField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(new JLabel("Responsibilities"), gbc);
+        gbc.gridx = 1;
+        panel.add(new JScrollPane(responsibilitiesArea), gbc);
+
+        tabbedPane.addTab("Professional Experience", panel);
+    }
+
+    private void addEducationTab() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Fill horizontal space
+
+        // Initialize JTextFields for Education fields
+        degreeField = new JTextField();
+        universityField = new JTextField();
+        graduationYearField = new JTextField();
+
+        // Add components to the panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(new JLabel("Degree"), gbc);
+        gbc.gridx = 1;
+        panel.add(degreeField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(new JLabel("University"), gbc);
+        gbc.gridx = 1;
+        panel.add(universityField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(new JLabel("Graduation Year"), gbc);
+        gbc.gridx = 1;
+        panel.add(graduationYearField, gbc);
+
+        // Add the panel to the tabbedPane
+        tabbedPane.addTab("Education", panel);
+    }
+
+    private void downloadPdf() {
+        Resume resume = new Resume();
+        resume.setJobTitle(jobTitleField.getText());
+        resume.setFirstName(firstNameField.getText());
+        resume.setLastName(lastNameField.getText());
+        resume.setEmail(emailField.getText());
+        resume.setPhone(phoneField.getText());
+        resume.setCountry(countryField.getText());
+        resume.setCity(cityField.getText());
+        resume.setProfessionalSummary(summaryArea.getText());
+        resume.setSkills(skillsArea.getText());
+        resume.setJobRole(jobRoleField.getText());
+        resume.setCompany(companyField.getText());
+        resume.setStartDate(startDateField.getText());
+        resume.setEndDate(endDateField.getText());
+        resume.setResponsibilities(responsibilitiesArea.getText());
+        resume.setDegree(degreeField.getText());
+        resume.setUniversity(universityField.getText());
+        resume.setGraduationYear(graduationYearField.getText());
+
+        PdfGenerator pdfGenerator = new PdfGenerator();
+        pdfGenerator.generatePdf(resume, "resume.pdf");
+
+        JOptionPane.showMessageDialog(this, "PDF downloaded successfully.");
     }
 
     private void saveResume() {
         Resume resume = new Resume();
-        resume.setJobTitle(textFields.get("Job Title").getText());
-        resume.setFirstName(textFields.get("First Name").getText());
-        resume.setLastName(textFields.get("Last Name").getText());
-        resume.setEmail(textFields.get("Email").getText());
-        resume.setPhone(textFields.get("Phone").getText());
-        resume.setCountry(textFields.get("Country").getText());
-        resume.setCity(textFields.get("City").getText());
+        resume.setJobTitle(jobTitleField.getText());
+        resume.setFirstName(firstNameField.getText());
+        resume.setLastName(lastNameField.getText());
+        resume.setEmail(emailField.getText());
+        resume.setPhone(phoneField.getText());
+        resume.setCountry(countryField.getText());
+        resume.setCity(cityField.getText());
         resume.setProfessionalSummary(summaryArea.getText());
+        resume.setSkills(skillsArea.getText());
+        resume.setJobRole(jobRoleField.getText());
+        resume.setCompany(companyField.getText());
+        resume.setStartDate(startDateField.getText());
+        resume.setEndDate(endDateField.getText());
+        resume.setResponsibilities(responsibilitiesArea.getText());
+        resume.setDegree(degreeField.getText());
+        resume.setUniversity(universityField.getText());
+        resume.setGraduationYear(graduationYearField.getText());
 
         ResumeDAO dao = new ResumeDAO();
         try {
             dao.saveResume(resume);
-            JOptionPane.showMessageDialog(this, "Resume saved successfully!");
+            JOptionPane.showMessageDialog(this, "Resume saved successfully.");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error saving resume: " + e.getMessage());
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to save resume: " + e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainWindow window = new MainWindow();
-            window.setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new MainWindow().setVisible(true));
     }
 }
